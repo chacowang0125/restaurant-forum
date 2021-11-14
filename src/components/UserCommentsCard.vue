@@ -22,8 +22,10 @@
 </template>
 
 <script>
+import { emptyImageFilter } from './../utils/minins'
 
 export default ({
+	mixins:[ emptyImageFilter ],
 	props: {
 		comments:{
 			type: Object
