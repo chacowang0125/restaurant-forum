@@ -27,7 +27,7 @@ export default ({
 	mixins: [emptyImageFilter],
 	props: {
 		favoritedRestaurants: {
-			type: Object
+			type: Array
 		}
 	},
 })

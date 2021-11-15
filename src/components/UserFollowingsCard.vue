@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import emptyImageFilter from './../utils/minins'
+import { emptyImageFilter } from './../utils/minins'
 
 export default({
 	mixins: [emptyImageFilter],
 	props: {
 		followings:{
-			type: Object,
+			type: Array,
 			required: true
 		}
 	},

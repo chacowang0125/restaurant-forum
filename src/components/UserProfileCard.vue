@@ -30,12 +30,12 @@
               <strong>{{ user.followersLength }}</strong> followers (追隨者)
             </li>
           </ul>
-            <!-- <router-link
+            <router-link
               :to="{ name: 'user-edit', params: { id: user.id } }"
-              class="btn btn-primary"
+              class="btn btn-primary mr-2"
             >
               Edit
-            </router-link> -->
+            </router-link>
             <button
               v-if="isFollowed"
               type="button"
@@ -59,9 +59,10 @@
 </template>
 
 <script>
-import emptyImageFilter from './../utils/minins'
+import { emptyImageFilter } from './../utils/minins'
 
 export default ({
+	name: 'UserProfileCard',
 	mixins: [emptyImageFilter],
 	props: {
 		user:{

@@ -7,13 +7,14 @@
     <hr>
     <div class="row text-center">
       <div v-for="user in users" :key="user.id" class="col-3">
-        <a href="#">
+        <router-link
+				:to="{ name: 'user' , params: { id : user.id }}">
           <img
             src="https://lh3.googleusercontent.com/proxy/d1YP2yic8x0TxTDXpfrlEP5uZh5OocHkLkYimY73-Svm0q56ieJVrCKEw7Qol0CrXfdwjZO9l9xngfb6ehxFnnUQRrpIOyoiK76YMT804e-n"
             width="140px"
             height="140px"
           >
-        </a>
+        </router-link>
         <h2>{{user.name}}</h2>
         <span class="badge badge-secondary">追蹤人數：{{user.FollowerCount}}</span>
         <p class="mt-3">

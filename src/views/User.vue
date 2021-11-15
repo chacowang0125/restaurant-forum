@@ -17,7 +17,6 @@
         <UserCommentsCard :comments="comments"/>
         <!-- UserFavoritedRestaurantsCard -->
         <UserFavoritedRestaurantsCard :favorited-restaurants="favoritedRestaurants"/>
-
       </div>
     </div>
   </div>
@@ -1206,6 +1205,7 @@ const dummyData = {
 }
 
 export default({
+	name: 'User',
 	components: {
 		UserProfileCard,
 		UserFollowingsCard,
@@ -1214,8 +1214,8 @@ export default({
 		UserFavoritedRestaurantsCard
 	},
 	data(){
-		return{
-			user:{
+		return {
+			user: {
         id: 0,
         image: '',
         name: '',
@@ -1233,7 +1233,7 @@ export default({
 		}
 	},
 	methods:{
-		fetchUser(){
+		fetchUser () {
 			const{profile , isFollowed} = dummyData
 			const{id , image , name , email , Followers , Followings , Comments , FavoritedRestaurants} = profile
 
@@ -1255,8 +1255,8 @@ export default({
 			this.favoritedRestaurants = FavoritedRestaurants
 		}
 	},
-	created(){
-		this.fetchUser()
+	created () {
+    this.fetchUser()
 	}
 })
 </script>

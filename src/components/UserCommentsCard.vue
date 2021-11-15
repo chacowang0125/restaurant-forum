@@ -28,7 +28,7 @@ export default ({
 	mixins:[ emptyImageFilter ],
 	props: {
 		comments:{
-			type: Object
+			type: Array
 		}
 	},
 })
