@@ -39,6 +39,7 @@
       <button
         class="btn btn-lg btn-primary btn-block mb-3"
         type="submit"
+				:disabled="isProcessing"
       >
         Submit
       </button>
@@ -57,20 +58,59 @@
 </template>
 
 <script>
+import { Toast } from '../utils/helpers'
+import authorizationAPI from './../apis/authorization'
+
 export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+			isProcessing: false
     }
   },
 	methods:{
-		handleSubmit(){
-			const data = JSON.stringify({
+		async handleSubmit(){
+			try{
+				//確認表單有填入資料
+				if ( !this.email || !this.password ){
+				Toast.fire({
+					icon: 'warning',
+					title: '請填入 email 和 password'
+				})
+				return
+			}
+			//顯示狀態為處理中，避免重複點擊
+			this.isProcessing = true
+
+			const response = await authorizationAPI
+			.signIn({
 				email: this.email,
 				password: this.password
 			})
-			console.log('data',data)
+
+				const { data } = response
+
+				if( data.status !== 'success' ) {
+					throw new Error(data.message)
+				}
+				//將伺服器的Token存在localstorage內
+				localStorage.setItem('token' , data.token)
+
+				//成功登入並轉換網址
+				this.$router.push('/restaurants')
+
+			} catch(error) {
+				this.password = ''
+
+				//顯示錯誤提示
+				Toast.fire({
+					icon: 'warning',
+					title: '請確認您輸入了正確的帳號密碼'
+				})
+				this.isProcessing = false
+				console.log(error)
+			}
 		}
 	}
 }

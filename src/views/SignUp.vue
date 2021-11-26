@@ -67,8 +67,9 @@
       <button
         class="btn btn-lg btn-primary btn-block mb-3"
         type="submit"
+				:disabled = "isProcessing"
       >
-        Submit
+        {{isProcessing ? 'Processing':'Submit'}}
       </button>
 
       <div class="text-center mb-3">
@@ -87,25 +88,63 @@
 </template>
 
 <script>
+import usersAPI from './../apis/users'
+import { Toast } from './../utils/helpers'
+
 export default {
   data () {
     return {
 			name: '',
       email: '',
       password: '',
-			passwordCheck:''
+			passwordCheck:'',
+			isProcessing: false
     }
   },
 	methods:{
-		handleSubmit(){
-			const data = {
+		async handleSubmit(){
+			try{
+				this.isProcessing = true
+				//錯誤處理
+				if (!this.name) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請填寫註冊名稱'
+        })
+        return
+      } else if (!this.email) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請填寫註冊信箱'
+        })
+        return
+      } else if (!this.password || !this.passwordCheck) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請填寫註冊密碼'
+        })
+        return
+      }
+				const formData = {
 				name: this.name,
 				email: this.email,
 				password: this.password,
 				passwordCheck: this.passwordCheck
 			}
-			//TODO:將資料送到後端伺服器註冊
-			console.log('handleSubmit',JSON.stringify(data))
+			const { data } = await usersAPI.signup(JSON.stringify(formData))
+
+			if( data.status !== 'success'){
+				throw new Error(data.message)
+			}
+
+			this.$router.push({ name: 'sign-in' })
+			} catch( error ) {
+				this.isProcessing = false
+				Toast.fire({
+					icon: 'error',
+					title: '無法送出註冊，請稍後再試'
+				})
+			}
 		}
 	}
 }
