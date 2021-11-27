@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import usersAPI from './../apis/users'
+import authorizationAPI from './../apis/authorization'
 import { Toast } from './../utils/helpers'
 
 export default {
@@ -131,7 +131,7 @@ export default {
 				password: this.password,
 				passwordCheck: this.passwordCheck
 			}
-			const { data } = await usersAPI.signup(JSON.stringify(formData))
+			const { data } = await authorizationAPI.signup(JSON.stringify(formData))
 
 			if( data.status !== 'success'){
 				throw new Error(data.message)

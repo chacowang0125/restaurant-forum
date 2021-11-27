@@ -97,6 +97,8 @@ export default {
 				//將伺服器的Token存在localstorage內
 				localStorage.setItem('token' , data.token)
 
+				//將資料傳到 vuex中
+				this.$store.commit('setCurrentUser' ,data.user)
 				//成功登入並轉換網址
 				this.$router.push('/restaurants')
 

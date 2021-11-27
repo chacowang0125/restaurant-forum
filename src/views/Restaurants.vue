@@ -71,7 +71,7 @@ export default ({
         this.restaurants = restaurants
         this.categories = categories
         this.categoryId = categoryId
-        this.currentPage = page
+        this.currentPage = page //null
         this.totalPage = totalPage
         this.previousPage = prev
         this.nextPage = next
