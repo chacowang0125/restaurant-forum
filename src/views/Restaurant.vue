@@ -22,19 +22,8 @@ import RestaurantDetail from "../components/RestaurantDetail.vue";
 import RestaurantComments from "../components/RestaurantComments.vue";
 import CreateComment from "../components/CreateComment.vue";
 import restaurantsAPI from "./../apis/restaurants";
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 import { Toast } from "./../utils/helpers";
-
-// const dummyUser = {
-//   currentUser: {
-//     id: 1,
-//     name: "root",
-//     email: "root@example.com",
-//     image: null,
-//     isAdmin: true,
-//   },
-//   isAuthenticated: true,
-// };
 
 export default {
   components: {
@@ -111,28 +100,29 @@ export default {
       );
     },
     afterCreateComment(payload) {
-      const { commentId, restaurantId, text } = payload;
-      this.restaurantComments.push({
-        id: commentId,
-        RestaurantId: restaurantId,
-        User: {
-          id: this.currentUser.id,
-          name: this.currentUser.name,
-        },
-        text,
-        createdAt: new Date(),
-      });
+        const { commentId, restaurantId, text } = payload;
+
+        this.restaurantComments.push({
+					id: commentId,
+          RestaurantId: restaurantId,
+          User: {
+            id: this.currentUser.id,
+            name: this.currentUser.name,
+          },
+          text,
+          createdAt: new Date()
+					});
     },
   },
-	//改變路由時，依據路由取得餐廳id，取得該餐廳資料
-	beforeRouteUpdate(to ,from,next) {
-		const { id: restaurantId } = to.params
-		this.fetchRestaurant(restaurantId)
-		next()
-	},
-	//從vuex取得currentuser資料
-	computed: {
-		...mapState(['currentUser'])
-	}
+  //改變路由時，依據路由取得餐廳id，取得該餐廳資料
+  beforeRouteUpdate(to, from, next) {
+    const { id: restaurantId } = to.params;
+    this.fetchRestaurant(restaurantId);
+    next();
+  },
+  //從vuex取得currentuser資料
+  computed: {
+    ...mapState(["currentUser"]),
+  },
 };
 </script>
