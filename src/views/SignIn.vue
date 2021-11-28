@@ -98,7 +98,7 @@ export default {
 				localStorage.setItem('token' , data.token)
 
 				//將資料傳到 vuex中
-				this.$store.commit('setCurrentUser' ,data.user)
+				this.$store.commit('setCurrentUser' , data.user)
 				//成功登入並轉換網址
 				this.$router.push('/restaurants')
 

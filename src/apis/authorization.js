@@ -9,5 +9,5 @@ export default {
     },
     signup({ formData }) {
         return apiHelper.post(`/signup`, formData)
-    },
+    }
 }

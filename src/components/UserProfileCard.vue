@@ -2,11 +2,7 @@
   <div class="card mb-3">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img
-          :src="user.image | emptyImage"
-          width="300px"
-          height="300px"
-        >
+        <img :src="user.image | emptyImage" width="300px" height="300px" />
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -30,28 +26,28 @@
               <strong>{{ user.followersLength }}</strong> followers (追隨者)
             </li>
           </ul>
-            <router-link
-              :to="{ name: 'user-edit', params: { id: user.id } }"
-              class="btn btn-primary mr-2"
-            >
-              Edit
-            </router-link>
-            <button
-              v-if="isFollowed"
-              type="button"
-              class="btn btn-danger"
-              @click.stop.prevent="deleteFollowing(user.id)"
-            >
-              取消追蹤
-            </button>
-            <button
-              v-else
-              type="button"
-              class="btn btn-primary"
-              @click.stop.prevent="addFollowing(user.id)"
-            >
-              追蹤
-            </button>
+          <router-link
+            :to="{ name: 'user-edit', params: { id: user.id } }"
+            class="btn btn-primary mr-2"
+          >
+            Edit
+          </router-link>
+          <button
+            v-if="isFollowed"
+            type="button"
+            class="btn btn-danger"
+            @click.stop.prevent="deleteFollowing(user.id)"
+          >
+            取消追蹤
+          </button>
+          <button
+            v-else
+            type="button"
+            class="btn btn-primary"
+            @click.stop.prevent="addFollowing(user.id)"
+          >
+            追蹤
+          </button>
         </div>
       </div>
     </div>
@@ -59,35 +55,64 @@
 </template>
 
 <script>
-import { emptyImageFilter } from './../utils/minins'
+import { emptyImageFilter } from "./../utils/minins";
+import usersAPI from "./../apis/users";
+import { Toast } from "./../utils/helpers";
 
-export default ({
-	name: 'UserProfileCard',
-	mixins: [emptyImageFilter],
-	props: {
-		user:{
-			type: Object,
-			required: true
-		},
-		initialIsFollowed:{
-			type: Boolean,
-			required: true
-		}
-	},
-	data(){
-		return{
-			isFollowed: this.initialIsFollowed
-		}
-	},
-	methods:{
-		addFollowing(){
-			//串API傳回資料庫
-			this.isFollowed = true
-		},
-		deleteFollowing(){
-			//串API傳回資料庫
-			this.isFollowed = false
-		}
-	}
-})
+export default {
+  name: "UserProfileCard",
+  mixins: [emptyImageFilter],
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+    initialIsFollowed: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      isFollowed: this.initialIsFollowed, //
+    };
+  },
+  methods: {
+    async addFollowing(userId) {
+      try {
+        const { data } = await usersAPI.addFollowing({ userId });
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+        this.isFollowed = true;
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法追蹤此使用者請稍後再試",
+        });
+      }
+    },
+    async deleteFollowing(userId) {
+      try {
+        const { data } = await usersAPI.deleteFollowing({ userId });
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+        this.isFollowed = false;
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "無法取消追蹤此使用者請稍後再試",
+        });
+      }
+    },
+  },
+  watch: {
+    initialIsFollowed(newValue) {
+      this.isFollowed = newValue;
+    },
+  },
+};
 </script>
