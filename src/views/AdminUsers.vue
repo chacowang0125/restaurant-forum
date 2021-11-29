@@ -2,7 +2,8 @@
   <div class="container py-5">
     <!-- AdminNav Component -->
     <AdminNav />
-    <table class="table">
+		<Spinner v-if="isLoading"/>
+    <table v-else class="table">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -47,6 +48,7 @@
 
 <script>
 import AdminNav from "../components/AdminNav.vue";
+import Spinner from "../components/Spinner.vue"
 import adminAPIS from "./../apis/admin";
 import { Toast } from "./../utils/helpers";
 
@@ -1153,19 +1155,24 @@ const dummyUser = {
 export default {
   components: {
     AdminNav,
+		Spinner
   },
   data() {
     return {
       users: [],
       currentUserId: -1,
+			isLoading: true
     };
   },
   methods: {
     async fetchUser() {
       try {
+				this.isLoading = true
         const { data } = await adminAPIS.users.get();
         this.users = data.users;
+				this.isLoading = false
       } catch (error) {
+				this.isLoading = false
         Toast.fire({
           icon: "error",
           title: "無法取得使用者資料，請稍後再試",

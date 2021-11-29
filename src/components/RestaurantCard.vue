@@ -1,12 +1,14 @@
 <template>
   <div class="col-md-6 col-lg-4">
-    <div class="card mb-4">
+    <div v-show="!isLoading"
+		class="card mb-4">
       <img
         class="card-img-top"
         :src="restaurant.image | emptyImage"
         alt="Card image cap"
         width="286px"
         height="180px"
+				@load="changeLoading"
       >
       <div class="card-body">
         <p class="card-text title-wrap">
@@ -74,10 +76,14 @@ export default({
 	},
 	data () {
 		return {
-			restaurant: this.initialRestaurant
+			restaurant: this.initialRestaurant,
+isLoading: true
 		}
 	},
 	methods:{
+		changeLoading() {
+			this.isLoading = false
+		},
 		async addFavorite(restaurantId) {
 			try {
 				const { data } = await usersAPI.addFavorite({restaurantId})
@@ -149,3 +155,34 @@ export default({
 	}
 })
 </script>
+
+<style scoped>
+.badge.badge-secondary {
+  padding: 0;
+  margin: 8px 0;
+  color: #bd2333;
+  background-color: transparent;
+}
+
+.btn,
+.btn-border.btn:hover {
+  margin: 7px 14px 7px 0;
+}
+
+.card {
+  margin-bottom: 2rem !important;
+}
+.card-img-top {
+  background-color: #EFEFEF;
+}
+
+.card-body {
+  padding: 17.5px;
+}
+
+.card-footer {
+  padding: 9px 17.5px;
+  border-color: rgb(232, 232, 232);
+  background: white;
+}
+</style>

@@ -13,7 +13,8 @@ export default new Vuex.Store({
             image: '',
             isAdmin: false
         },
-        isAuthenticated: false
+        isAuthenticated: false,
+        token: ''
     },
     //用來修改 state 的方法
     mutations: {
@@ -23,6 +24,13 @@ export default new Vuex.Store({
                 ...currentUser
             }
             state.isAuthenticated = true
+            state.token = localStorage.getItem('token')
+        },
+        revokeAuthentication(state) {
+            state.currentUser = {}
+            state.isAuthenticated = false
+            state.token = ''
+            localStorage.removeItem('token')
         }
     },
     //透過API取得資料
@@ -38,8 +46,11 @@ export default new Vuex.Store({
                     image,
                     isAdmin
                 })
+                return true
             } catch (error) {
                 console.error(error.message)
+                commit('revokeAuthentication')
+                return false
             }
         }
     },
