@@ -11,15 +11,17 @@
           :initial-restaurant="restaurant"
         />
       </div>
+
+      <RestaurantsPagination
+        v-if="totalPage.length > 1"
+        :current-page="currentPage"
+        :total-page="totalPage"
+        :category-id="categoryId"
+        :previous-page="previousPage"
+        :next-page="nextPage"
+      />
+      <div v-if="restaurants.length < 1">此類別目前無餐廳資料</div>
     </template>
-    <RestaurantsPagination
-      v-if="totalPage.length > 1"
-      :current-page="currentPage"
-      :total-page="totalPage"
-      :category-id="categoryId"
-      :previous-page="previousPage"
-      :next-page="nextPage"
-    />
   </div>
 </template>
 
