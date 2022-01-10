@@ -4,7 +4,6 @@
 
 ## Preview
 - 首頁
-https://github.com/chacowang0125/restaurant-forum.git
 ![image](https://github.com/chacowang0125/restaurant-forum/blob/main/public/img/index.png)
 - 餐廳詳細頁
 ![image](https://github.com/chacowang0125/restaurant-forum/blob/main/public/img/restaurant-detail.png)
