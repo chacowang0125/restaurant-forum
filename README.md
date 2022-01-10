@@ -1,10 +1,13 @@
-# Restaurant Forum Vue.js
+# 餐廳評論網 Vue.js
 
 透過 Vue.js 實作餐廳評論網
 
 ## Preview
-
-![](./src/assets/preview.png)
+- 首頁
+https://github.com/chacowang0125/restaurant-forum.git
+![image](https://github.com/chacowang0125/restaurant-forum/blob/main/public/img/index.png)
+- 餐廳詳細頁
+![image](https://github.com/chacowang0125/restaurant-forum/blob/main/public/img/restaurant-detail.png)
 
 ## Features
 
@@ -16,8 +19,7 @@ root@example.com（管理者）
 密碼：一律為12345678
 ```
 
-使用者可以
-
+使用者可以:
 - 使用帳號註冊、登入
 - 根據類別篩選餐廳
 - 瀏覽單一餐廳資訊及其評論
@@ -25,8 +27,7 @@ root@example.com（管理者）
 - 查看、追蹤其他用戶
 - 修改個人資料
 
-管理者後台
-
+管理者後台:
 - 新增、瀏覽、修改、刪除餐廳資訊
 - 新增、編輯、刪除餐廳類別名稱
 - 修改使用者身分為一般用戶或管理員
