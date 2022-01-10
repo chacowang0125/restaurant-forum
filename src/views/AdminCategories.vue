@@ -15,7 +15,7 @@
         <div class="col-auto">
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn"
             :disabled="isProcessing"
             @click.stop.prevent="createCategory"
           >

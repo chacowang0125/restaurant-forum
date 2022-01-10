@@ -32,13 +32,13 @@
     <div class="col-lg-8">
       <p>{{ restaurant.description }}</p>
       <router-link
-			class="btn btn-primary btn-border mr-2"
+			class="btn btn-border mr-2"
 			:to="{name: 'restaurant-dashboard', params: { id: restaurant.id}
 			}">Dashboard</router-link>
 
       <button
         type="button"
-        class="btn btn-danger btn-border mr-2"
+        class="btn btn-border mr-2"
         v-if="restaurant.isFavorited"
         @click.stop.prevent="deleteFavorite(restaurant.id)"
       >
@@ -46,7 +46,7 @@
       </button>
       <button
         type="button"
-        class="btn btn-primary btn-border mr-2"
+        class="btn btn-border mr-2"
         @click.stop.prevent="addFavorite(restaurant.id)"
         v-else
       >
@@ -54,7 +54,7 @@
       </button>
       <button
         type="button"
-        class="btn btn-danger like mr-2"
+        class="btn like mr-2"
         v-if="restaurant.isLiked"
         @click.stop.prevent="deleteLike(restaurant.id)"
       >
@@ -62,7 +62,7 @@
       </button>
       <button
         type="button"
-        class="btn btn-primary like mr-2"
+        class="btn like mr-2"
         @click.stop.prevent="addLike(restaurant.id)"
         v-else
       >

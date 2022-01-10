@@ -33,7 +33,9 @@
         />
       </div>
 
-      <button type="submit" class="btn btn-primary" :disabled="isProcessing">Submit</button>
+      <button type="submit" class="btn btn-primary" :disabled="isProcessing">
+        Submit
+      </button>
     </form>
   </div>
 </template>
@@ -51,7 +53,7 @@ export default {
         image: "",
         name: "",
       },
-			isProcessing: false
+      isProcessing: false,
     };
   },
   methods: {
@@ -78,23 +80,26 @@ export default {
     },
     async handleSubmit(e) {
       try {
-				if( !this.user.name ){
-					Toast.fire({
-						icon: 'warning',
-						title: '請填入姓名'
-					})
-					return
-				}
-				this.isProcessing = false
+        if (!this.user.name) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填入姓名",
+          });
+          return;
+        }
+        this.isProcessing = false;
         const form = e.target;
         const formData = new FormData(form);
-        const { data } = await usersAPI.update({ userId: this.user.id, formData});
-				if (data.status !== 'success') {
-					throw new Error(data.message)
-				}
-				this.$router.push({ name: "user", params: { id: this.id } });
+        const { data } = await usersAPI.update({
+          userId: this.user.id,
+          formData,
+        });
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+        this.$router.push({ name: "user", params: { id: this.id } });
       } catch (error) {
-				this.isProcessing = false
+        this.isProcessing = false;
         Toast.fire({
           icon: "error",
           title: "無法修改使用者資料，請稍後再試",

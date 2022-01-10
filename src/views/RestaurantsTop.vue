@@ -34,7 +34,7 @@
                   name: 'restaurant-dashboard',
                   params: { id: restaurant.id },
                 }"
-                class="btn btn-primary mr-2"
+                class="btn mr-2"
                 >Show</router-link
               >
 
