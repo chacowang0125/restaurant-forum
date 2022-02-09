@@ -2,6 +2,10 @@
 
 透過 Vue.js 實作餐廳評論網
 
+## Project Link
+
+https://chacowang0125.github.io/restaurant-forum/#/signin
+
 ## Preview
 - 首頁
 ![image](https://github.com/chacowang0125/restaurant-forum/blob/main/public/img/index.png)
